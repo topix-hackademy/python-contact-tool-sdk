@@ -2,6 +2,8 @@ from configparser import ConfigParser
 import argparse
 import os
 
+from contactsdk.connector import Connector
+
 def parse_input():
     parser = argparse.ArgumentParser()
     parser.add_argument("config_file", type=str, help="Configuration file")
@@ -10,7 +12,9 @@ def parse_input():
 
 def program():
 
-    print "Welcome to CONTACT-TOOLS SDK"
+    print "*********************************************"
+    print "* Welcome to CONTACT-TOOLS SDK Command Line *"
+    print "*********************************************"
 
     import globals
     globals.init()
@@ -19,14 +23,15 @@ def program():
     parser = ConfigParser()
     parser.read(os.path.expanduser(parsed_input.config_file))
 
-    print "Reading configuration: "
     access_token = parser.get('secret', 'access_token')
-    url = parser.get('secret', 'url')
+    base_url = parser.get('secret', 'base_url')
     endpoint = parser.get('secret', 'endpoint')
 
-    print access_token
-    print url
-    print endpoint
+    # Create Connector
+    connector = Connector(access_token, base_url, endpoint)
+
+    print "\n#### Read Configuration from %s ####" % parsed_input.config_file
+    print connector
 
 def main():
     try:

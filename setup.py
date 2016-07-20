@@ -11,8 +11,6 @@ except IOError:
 
 version = "0.0.1"
 
-#os.system('pip install ADDITIONAL-REQ')
-
 setup(name='contactsdk',
       version=version,
       description="Python package used to interact with TOP-IX Contact Tool",
@@ -30,6 +28,4 @@ setup(name='contactsdk',
           "configparser",
           "requests",
       ]
-)
-
-
+      )

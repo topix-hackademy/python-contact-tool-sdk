@@ -28,9 +28,14 @@ class Connector(object):
         return self.__str__()
 
     def __str__(self):
-        return '''ACCESS-TOKEN: {access_token}
-        BASE-URL: {base_url}
-        ENDPOINT: {endpoint}'''.format(access_token=self.access_token,
+        return '''
+ACCESS-TOKEN:
+    {access_token}
+BASE-URL:
+    {base_url}
+ENDPOINT:
+    {endpoint}
+'''.format(access_token=self.access_token,
                    base_url=self.base_url,
                    endpoint=self.endpoint)
 
