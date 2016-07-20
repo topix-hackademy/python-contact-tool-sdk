@@ -27,7 +27,8 @@ setup(name='contactsdk',
           ]
       },
       install_requires=[
-          "configparser"
+          "configparser",
+          "requests",
       ]
 )
 
