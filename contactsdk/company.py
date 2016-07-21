@@ -13,10 +13,10 @@ class CompanyType(ApiCaller):
         return self._get("%s%s" % (self._res, str(_id)))
 
     def create(self, data):
-        pass
+        return self._post(self._res, data)
 
-    def update(self, data):
-        pass
+    def update(self, _id, data):
+        return self._update(self._res, _id, data)
 
 
 class Company(ApiCaller):
@@ -33,8 +33,7 @@ class Company(ApiCaller):
         return self._get("%s%s" % (self._res, str(_id)))
 
     def create(self, data):
-        pass
+        return self._post(self._res, data)
 
-    def update(self, data):
-        pass
-
+    def update(self, _id, data):
+        return self._update(self._res, _id, data)

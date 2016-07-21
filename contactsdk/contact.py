@@ -13,10 +13,11 @@ class Contact(ApiCaller):
         return self._get("%s%s" % (self._res, str(_id)))
 
     def create(self, data):
-        pass
+        return self._post(self._res, data)
 
-    def update(self, data):
-        pass
+    def update(self, _id, data):
+        return self._update(self._res, _id, data)
+
 
 class ContactType(ApiCaller):
     _res = 'role/'
@@ -31,7 +32,7 @@ class ContactType(ApiCaller):
         return self._get("%s%s" % (self._res, str(_id)))
 
     def create(self, data):
-        pass
+        return self._post(self._res, data)
 
-    def update(self, data):
-        pass
+    def update(self, _id, data):
+        return self._update(self._res, _id, data)
