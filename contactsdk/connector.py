@@ -12,8 +12,9 @@ class Connector(object):
         if not self._instance:
             self._instance = super(Connector, self).__init__()
 
-        base_url = self.__add_ending_slash(base_url)
-        endpoint = self.__add_ending_slash(endpoint)
+        self.access_token = access_token
+        self.base_url = self.__add_ending_slash(base_url)
+        self.endpoint = self.__add_ending_slash(endpoint)
 
         self.company = Company(access_token, base_url, endpoint)
         self.company_type = CompanyType(access_token, base_url, endpoint)
