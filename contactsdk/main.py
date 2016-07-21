@@ -23,9 +23,9 @@ def program():
     parser = ConfigParser()
     parser.read(os.path.expanduser(parsed_input.config_file))
 
-    access_token = parser.get('secret', 'access_token')
-    base_url = parser.get('secret', 'base_url')
-    endpoint = parser.get('secret', 'endpoint')
+    access_token = globals.access_token = parser.get('secret', 'access_token')
+    base_url = globals.base_url = parser.get('secret', 'base_url')
+    endpoint = globals.endpoint = parser.get('secret', 'endpoint')
 
     # Create Connector
     connector = Connector(access_token, base_url, endpoint)
