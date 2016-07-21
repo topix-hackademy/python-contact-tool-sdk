@@ -1,6 +1,7 @@
 import requests
 import json
 
+
 class ContactSDKException(Exception):
 
     response = None
@@ -41,25 +42,26 @@ class ApiCaller(object):
     def update(self, _id, data):
         return self._update(self._res, _id, data)
 
-    def _wrapper_status_code(self, response):
-        if response.status_code < 205:
-            return response.json()
-        raise ContactSDKException(response)
-
     def _get(self, resource):
         resp = requests.get(url="%s%s" % (self.api_url, resource),
                             data={},
                             headers=self._headers)
-        return self._wrapper_status_code(resp)
+        return ApiCaller._wrapper_status_code(resp)
 
     def _post(self, resource, data):
         resp = requests.post(url="%s%s" % (self.api_url, resource),
                              data=json.dumps(data),
                              headers=self._headers)
-        return self._wrapper_status_code(resp)
+        return ApiCaller._wrapper_status_code(resp)
 
     def _update(self, resource, _id, data):
         resp = requests.put(url="%s%s%s/" % (self.api_url, resource, str(_id)),
                             data=json.dumps(data),
                             headers=self._headers)
-        return self._wrapper_status_code(resp)
+        return ApiCaller._wrapper_status_code(resp)
+
+    @staticmethod
+    def _wrapper_status_code(response):
+        if response.status_code < 205:
+            return response.json()
+        raise ContactSDKException(response)

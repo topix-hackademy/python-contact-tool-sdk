@@ -1,8 +1,8 @@
 from configparser import ConfigParser
 import argparse
 import os
-
 from contactsdk.connector import Connector
+
 
 def parse_input():
     parser = argparse.ArgumentParser()
@@ -10,14 +10,12 @@ def parse_input():
     args = parser.parse_args()
     return args
 
+
 def program():
 
     print "*********************************************"
     print "* Welcome to CONTACT-TOOLS SDK Command Line *"
     print "*********************************************"
-
-    import globals
-    globals.init()
 
     parsed_input = parse_input()
     parser = ConfigParser()
@@ -32,6 +30,7 @@ def program():
 
     print "\n#### Read Configuration from %s ####" % parsed_input.config_file
     print connector
+
 
 def main():
     try:
