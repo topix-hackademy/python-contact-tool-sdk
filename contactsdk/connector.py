@@ -1,4 +1,4 @@
-from contactsdk.api_caller import ApiCaller
+from contactsdk.api_caller import ApiCaller, ContactApiCaller, CompanyApiCaller
 
 
 class Connector(object):
@@ -16,9 +16,9 @@ class Connector(object):
         self.base_url = Connector.__add_ending_slash(base_url)
         self.endpoint = Connector.__add_ending_slash(endpoint)
 
-        self.company = ApiCaller('company/', access_token, base_url, endpoint)
+        self.company = CompanyApiCaller('company/', access_token, base_url, endpoint)
         self.company_type = ApiCaller('company-type/', access_token, base_url, endpoint)
-        self.contact = ApiCaller('contact/', access_token, base_url, endpoint)
+        self.contact = ContactApiCaller('contact/', access_token, base_url, endpoint)
         self.contact_type = ApiCaller('role/', access_token, base_url, endpoint)
 
     def __repr__(self):

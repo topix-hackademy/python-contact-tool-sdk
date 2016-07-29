@@ -118,3 +118,22 @@ Here some code examples:
     # UPDATE COMPANY
     new_company_updated = connector.company.update(1, data)
 
+## Company By Code
+
+To retrieve a company by taxcode or VAT number we can use the method `get_by_code` owned by the company object:
+ 
+    from contactsdk.connector import Connector
+    connector = Connector(YOUR-ACCESS-TOKEN, YOUR-BASE-URL, API-ENDPOINT)
+    
+    # GET COMPANY BY CODE
+    print connector.company.get_by_code(VAT_NUMBER)
+    
+## Contact By Email
+
+To retrieve a contact by his email we can use the method `get_by_email` owned by the contact object:
+ 
+    from contactsdk.connector import Connector
+    connector = Connector(YOUR-ACCESS-TOKEN, YOUR-BASE-URL, API-ENDPOINT)
+    
+    # GET COMPANY BY CODE
+    print connector.contact.get_by_email(EMAIL_TO_SEARCH)

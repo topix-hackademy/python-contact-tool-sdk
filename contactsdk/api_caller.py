@@ -65,3 +65,14 @@ class ApiCaller(object):
         if response.status_code < 205:
             return response.json()
         raise ContactSDKException(response)
+
+
+class ContactApiCaller(ApiCaller):
+
+    def get_by_email(self, email):
+        return self._get("contact-by-email/%s/" % email)
+
+class CompanyApiCaller(ApiCaller):
+
+    def get_by_code(self, code):
+        return self._get("company-by-code/%s/" % code)
