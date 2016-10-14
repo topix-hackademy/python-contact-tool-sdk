@@ -76,3 +76,6 @@ class CompanyApiCaller(ApiCaller):
 
     def get_by_code(self, code):
         return self._get("company-by-code/%s/" % code)
+
+    def get_freesearch(self, searchstring):
+        return self._get("company-freesearch/%s/" % searchstring)
