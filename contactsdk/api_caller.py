@@ -71,11 +71,18 @@ class ContactApiCaller(ApiCaller):
 
     def get_by_email(self, email):
         return self._get("contact-by-email/%s/" % email)
+        
+    def get_by_csid(self, csid):
+        return self._get("contact-by-csid/%s/" % code)
+    
 
 class CompanyApiCaller(ApiCaller):
 
     def get_by_code(self, code):
         return self._get("company-by-code/%s/" % code)
+
+    def get_by_csid(self, csid):
+        return self._get("company-by-csid/%s/" % code)
 
     def get_freesearch(self, searchstring):
         return self._get("company-freesearch/%s/" % searchstring)
