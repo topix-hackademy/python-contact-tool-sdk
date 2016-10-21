@@ -70,7 +70,7 @@ class ApiCaller(object):
                 return response.json()
         else:
             response={}
-            response.status_code="connection error"
+            response["status_code"]="connection error"
         raise ContactSDKException(response)
 
 
