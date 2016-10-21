@@ -65,7 +65,7 @@ class ApiCaller(object):
 
     @staticmethod
     def _wrapper_status_code(response):
-        if resp:
+        if response:
             if response.status_code < 205:
                 return response.json()
         else:
