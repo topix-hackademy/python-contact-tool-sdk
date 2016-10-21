@@ -43,9 +43,12 @@ class ApiCaller(object):
         return self._update(self._res, _id, data)
 
     def _get(self, resource):
-        resp = requests.get(url="%s%s" % (self.api_url, resource),
-                            data={},
-                            headers=self._headers)
+        try:
+            resp = requests.get(url="%s%s" % (self.api_url, resource),
+                                data={},
+                                headers=self._headers)
+        except Exception as e:
+            resp=None
         return ApiCaller._wrapper_status_code(resp)
 
     def _post(self, resource, data):
@@ -62,8 +65,11 @@ class ApiCaller(object):
 
     @staticmethod
     def _wrapper_status_code(response):
-        if response.status_code < 205:
-            return response.json()
+        if resp:
+            if response.status_code < 205:
+                return response.json()
+        else:
+            raise ContactSDKException("connection error")
         raise ContactSDKException(response)
 
 
