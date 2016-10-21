@@ -69,6 +69,7 @@ class ApiCaller(object):
             if response.status_code < 205:
                 return response.json()
         else:
+            response={}
             response.status_code="connection error"
         raise ContactSDKException(response)
 
