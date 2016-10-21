@@ -1,14 +1,18 @@
 import requests
 import json
-
+from django.http import HttpResponse
 
 class ContactSDKException(Exception):
 
     response = None
 
     def __init__(self, resp):
-        self.message = "Exception due to status code: %s" % resp.status_code
-        self.response = resp
+        if resp:
+            self.message = "Exception due to status code: %s" % resp.status_code
+            self.response = resp
+        else:
+            self.message = "Connection error"
+            self.response = None
 
 
 class ApiCaller(object):
@@ -52,25 +56,29 @@ class ApiCaller(object):
         return ApiCaller._wrapper_status_code(resp)
 
     def _post(self, resource, data):
-        resp = requests.post(url="%s%s" % (self.api_url, resource),
-                             data=json.dumps(data),
-                             headers=self._headers)
+        try:
+            resp = requests.post(url="%s%s" % (self.api_url, resource),
+                                 data=json.dumps(data),
+                                 headers=self._headers)
+        except Exception as e:
+            resp=None
+            
         return ApiCaller._wrapper_status_code(resp)
 
     def _update(self, resource, _id, data):
-        resp = requests.put(url="%s%s%s/" % (self.api_url, resource, str(_id)),
-                            data=json.dumps(data),
-                            headers=self._headers)
+        try:
+            resp = requests.put(url="%s%s%s/" % (self.api_url, resource, str(_id)),
+                                data=json.dumps(data),
+                                headers=self._headers)
+        except Exception as e:
+            resp=None
+        
         return ApiCaller._wrapper_status_code(resp)
 
     @staticmethod
     def _wrapper_status_code(response):
-        if response:
-            if response.status_code < 205:
-                return response.json()
-        else:
-            response={}
-            response["status_code"]="connection error"
+        if response and response.status_code < 205:
+            return response.json()
         raise ContactSDKException(response)
 
 
