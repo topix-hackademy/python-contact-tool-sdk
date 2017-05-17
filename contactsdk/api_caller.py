@@ -2,6 +2,8 @@ import requests
 import json
 from django.http import HttpResponse
 
+TIMEOUT_SEC=8
+
 class ContactSDKException(Exception):
 
     response = None
@@ -50,7 +52,7 @@ class ApiCaller(object):
         try:
             resp = requests.get(url="%s%s" % (self.api_url, resource),
                                 data={},
-                                headers=self._headers)
+                                headers=self._headers, timeout=TIMEOUT_SEC)
         except Exception as e:
             resp=None
         return ApiCaller._wrapper_status_code(resp)
@@ -59,7 +61,7 @@ class ApiCaller(object):
         try:
             resp = requests.post(url="%s%s" % (self.api_url, resource),
                                  data=json.dumps(data),
-                                 headers=self._headers)
+                                 headers=self._headers, timeout=TIMEOUT_SEC)
         except Exception as e:
             resp=None
             
@@ -69,7 +71,7 @@ class ApiCaller(object):
         try:
             resp = requests.put(url="%s%s%s/" % (self.api_url, resource, str(_id)),
                                 data=json.dumps(data),
-                                headers=self._headers)
+                                headers=self._headers, timeout=TIMEOUT_SEC)
         except Exception as e:
             resp=None
         
