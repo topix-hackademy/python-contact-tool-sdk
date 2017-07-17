@@ -1,16 +1,18 @@
 import requests
 import json
-from django.http import HttpResponse
+TIMEOUT_SEC = 8
 
-TIMEOUT_SEC=8
 
 class ContactSDKException(Exception):
 
     response = None
 
     def __init__(self, resp):
-        if resp:
-            self.message = "Exception due to status code: %s" % resp.status_code
+        if resp or resp.status_code:
+            self.message = "Exception due to status code: {} with message {}".format(
+                resp.status_code,
+                json.dumps(resp.json())
+            )
             self.response = resp
         else:
             self.message = "Connection error"
@@ -54,7 +56,7 @@ class ApiCaller(object):
                                 data={},
                                 headers=self._headers, timeout=TIMEOUT_SEC)
         except Exception as e:
-            resp=None
+            resp = None
         return ApiCaller._wrapper_status_code(resp)
 
     def _post(self, resource, data):
@@ -63,7 +65,7 @@ class ApiCaller(object):
                                  data=json.dumps(data),
                                  headers=self._headers, timeout=TIMEOUT_SEC)
         except Exception as e:
-            resp=None
+            resp = None
             
         return ApiCaller._wrapper_status_code(resp)
 
@@ -73,7 +75,7 @@ class ApiCaller(object):
                                 data=json.dumps(data),
                                 headers=self._headers, timeout=TIMEOUT_SEC)
         except Exception as e:
-            resp=None
+            resp = None
         
         return ApiCaller._wrapper_status_code(resp)
 
