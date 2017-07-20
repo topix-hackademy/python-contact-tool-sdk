@@ -1,5 +1,7 @@
-import requests
 import json
+
+import requests
+
 TIMEOUT_SEC = 8
 
 
@@ -9,11 +11,17 @@ class ContactSDKException(Exception):
 
     def __init__(self, resp):
         if resp or resp.status_code:
-            self.message = "Exception due to status code: {} with message {}".format(
-                resp.status_code,
-                json.dumps(resp.json())
-            )
             self.response = resp
+            if resp.status_code == 404:
+                self.message = "Exception due to status code: {} with message ['Item not found!']".format(
+                    resp.status_code
+                )
+            else:
+                self.message = "Exception due to status code: {} with message {}".format(
+                    resp.status_code,
+                    json.dumps(resp.json())
+                )
+
         else:
             self.message = "Connection error"
             self.response = None
@@ -66,7 +74,7 @@ class ApiCaller(object):
                                  headers=self._headers, timeout=TIMEOUT_SEC)
         except Exception as e:
             resp = None
-            
+
         return ApiCaller._wrapper_status_code(resp)
 
     def _update(self, resource, _id, data):
@@ -76,7 +84,7 @@ class ApiCaller(object):
                                 headers=self._headers, timeout=TIMEOUT_SEC)
         except Exception as e:
             resp = None
-        
+
         return ApiCaller._wrapper_status_code(resp)
 
     @staticmethod
@@ -90,10 +98,10 @@ class ContactApiCaller(ApiCaller):
 
     def get_by_email(self, email):
         return self._get("contact-by-email/%s/" % email)
-        
+
     def get_by_csid(self, csid):
         return self._get("contact-by-csid/%s/" % csid)
-    
+
 
 class CompanyApiCaller(ApiCaller):
 
