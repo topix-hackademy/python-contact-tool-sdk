@@ -21,6 +21,8 @@ class Connector(object):
         self.contact = ContactApiCaller('contact/', access_token, base_url, endpoint)
         self.contact_type = ApiCaller('role/', access_token, base_url, endpoint)
 
+        self.relation = ApiCaller('relation/', access_token, base_url, endpoint)
+
     def __repr__(self):
         return self.__str__()
 
