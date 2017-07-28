@@ -9,7 +9,7 @@ try:
 except IOError:
     README = ''
 
-version = "0.1.0"
+version = "1.2.3"
 
 setup(name='contactsdk',
       version=version,
