@@ -10,7 +10,7 @@ class ContactSDKException(Exception):
     response = None
 
     def __init__(self, resp):
-        if resp or resp.status_code:
+        if resp:
             self.response = resp
             if resp.status_code == 404:
                 self.message = "Exception due to status code: {} with message ['Item not found!']".format(
